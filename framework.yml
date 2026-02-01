@@ -1,0 +1,249 @@
+# UX Contract Framework Manifest
+# This file defines the framework metadata, variables, and phases
+
+meta:
+  id: ux-contract-dev
+  name: UX Contract Framework
+  version: 1.0.0
+  description: UX駆動開発フレームワーク。画面設計→詳細設計→実装の流れ
+
+# Variable mapping (project-config.yml paths)
+variables:
+  PROJECT_NAME: project.name
+  PROJECT_TYPE: project.type
+  MAIN_FEATURES: project.main_features
+  DESIGN_ROLE: roles.design
+  IMPL_ROLE: roles.impl
+  SETUP_ROLE: roles.setup
+  SPEC_DIR: directories.ux_spec
+  UX_SPEC_DIR: directories.ux_spec
+  DETAIL_SPEC_DIR: directories.detail_spec
+  DETAIL_DIR: directories.detail_spec
+  IMPL_DIR: directories.impl
+  TEST_DIR: directories.test
+
+# Phase definitions
+phases:
+  # Setup
+  - id: 00c-project-config
+    name: プロジェクト設定
+    description: project-config.yml のカスタマイズ
+    tool: Claude
+    group: setup
+    prompt: prompts/00c-project-config.md
+    next: [01-init-setup]
+    reject: []
+
+  # Design - Init
+  - id: 01-init-setup
+    name: 構想検討
+    description: 開発ルール（メタ契約）の確定
+    tool: Claude
+    group: design
+    prompt: prompts/01-init-setup.md
+    next: [01r-init-review]
+    reject: []
+
+  - id: 01r-init-review
+    name: 構想レビュー
+    description: 構想の人間レビュー
+    tool: 人間+AI
+    group: review
+    prompt: prompts/01r-init-review.md
+    next: [02-ux-design]
+    reject: [01-init-setup]
+
+  # Design - UX
+  - id: 02-ux-design
+    name: UX設計
+    description: UX仕様の策定
+    tool: Claude
+    group: design
+    prompt: prompts/02-ux-design.md
+    next: [02r-ux-review]
+    reject: [01-init-setup]
+
+  - id: 02r-ux-review
+    name: UX設計レビュー
+    description: UX設計成果物の人間レビュー
+    tool: 人間+AI
+    group: review
+    prompt: prompts/02r-ux-review.md
+    next: [03-ux-verify]
+    reject: [02-ux-design]
+
+  - id: 03-ux-verify
+    name: UX検証
+    description: UX設計の検証
+    tool: Claude
+    group: design
+    prompt: prompts/03-ux-verify.md
+    next: [03r-ux-verify-review]
+    reject: [02-ux-design, 04-ux-fix]
+
+  - id: 03r-ux-verify-review
+    name: UX検証レビュー
+    description: UX検証結果の人間レビュー
+    tool: 人間+AI
+    group: review
+    prompt: prompts/03r-ux-verify-review.md
+    next: [05a-detail-survey]
+    reject: [04-ux-fix, 02-ux-design]
+
+  - id: 04-ux-fix
+    name: UX修正
+    description: UX設計の修正
+    tool: Claude
+    group: design
+    optional: true
+    prompt: prompts/04-ux-fix.md
+    next: [03-ux-verify]
+    reject: []
+
+  # Design - Detail
+  - id: 05a-detail-survey
+    name: 詳細設計：現状調査
+    description: 現状のコードベース調査
+    tool: Codex
+    group: detail
+    prompt: prompts/05a-detail-survey.md
+    next: [05b-detail-architecture]
+    reject: []
+
+  - id: 05b-detail-architecture
+    name: 詳細設計：アーキテクチャ
+    description: アーキテクチャ設計
+    tool: Claude
+    group: detail
+    prompt: prompts/05b-detail-architecture.md
+    next: [05c-detail-path-confirm]
+    reject: [05a-detail-survey]
+
+  - id: 05c-detail-path-confirm
+    name: 詳細設計：パス確認
+    description: ファイルパスの確認
+    tool: Codex
+    group: detail
+    prompt: prompts/05c-detail-path-confirm.md
+    next: [05d-detail-finalize]
+    reject: [05b-detail-architecture]
+
+  - id: 05d-detail-finalize
+    name: 詳細設計：とりまとめ
+    description: 詳細設計のとりまとめ
+    tool: Claude
+    group: detail
+    prompt: prompts/05d-detail-finalize.md
+    next: [05r-detail-review]
+    reject: [05c-detail-path-confirm]
+
+  - id: 05r-detail-review
+    name: 詳細設計レビュー
+    description: 詳細設計成果物の人間レビュー
+    tool: 人間+AI
+    group: review
+    prompt: prompts/05r-detail-review.md
+    next: [06-detail-verify]
+    reject: [05d-detail-finalize, 05b-detail-architecture]
+
+  - id: 06-detail-verify
+    name: 詳細設計検証
+    description: 詳細設計の検証
+    tool: Claude
+    group: detail
+    prompt: prompts/06-detail-verify.md
+    next: [06r-detail-verify-review]
+    reject: [05d-detail-finalize, 07-detail-fix]
+
+  - id: 06r-detail-verify-review
+    name: 詳細検証レビュー
+    description: 詳細検証結果の人間レビュー
+    tool: 人間+AI
+    group: review
+    prompt: prompts/06r-detail-verify-review.md
+    next: [08-handoff-check]
+    reject: [07-detail-fix, 05d-detail-finalize, 02-ux-design]
+
+  - id: 07-detail-fix
+    name: 詳細設計修正
+    description: 詳細設計の修正
+    tool: Claude
+    group: detail
+    optional: true
+    prompt: prompts/07-detail-fix.md
+    next: [06-detail-verify]
+    reject: []
+
+  # Handoff
+  - id: 08-handoff-check
+    name: 引継ぎ判定
+    description: 実装への引継ぎ判定
+    tool: Claude
+    group: handoff
+    prompt: prompts/08-handoff-check.md
+    next: [09-design-freeze]
+    reject: [05d-detail-finalize]
+
+  - id: 09-design-freeze
+    name: 契約凍結
+    description: UX/詳細設計の凍結
+    tool: Claude
+    group: freeze
+    prompt: prompts/09-design-freeze.md
+    next: [10-impl-start]
+    reject: [08-handoff-check]
+
+  # Implementation
+  - id: 10-impl-start
+    name: 実装開始
+    description: 実装の開始準備
+    tool: Codex
+    group: impl
+    prompt: prompts/10-impl-start.md
+    next: [11-impl-ready]
+    reject: []
+
+  - id: 11-impl-ready
+    name: 実装準備
+    description: 実装環境の準備
+    tool: Codex
+    group: impl
+    prompt: prompts/11-impl-ready.md
+    next: [12-impl-execute]
+    reject: []
+
+  - id: 12-impl-execute
+    name: 実装
+    description: 実装の実行
+    tool: Codex
+    group: impl
+    prompt: prompts/12-impl-execute.md
+    next: [13-impl-verify]
+    reject: []
+
+  - id: 13-impl-verify
+    name: 実装検証
+    description: 実装の検証
+    tool: Codex
+    group: verify
+    prompt: prompts/13-impl-verify.md
+    next: [13r-impl-verify-review]
+    reject: [12-impl-execute]
+
+  - id: 13r-impl-verify-review
+    name: 実装検証レビュー
+    description: 実装検証結果の人間レビュー
+    tool: 人間+AI
+    group: review
+    prompt: prompts/13r-impl-verify-review.md
+    next: [14-impl-complete]
+    reject: [12-impl-execute]
+
+  - id: 14-impl-complete
+    name: 実装完了
+    description: 実装の完了
+    tool: Codex
+    group: complete
+    prompt: prompts/14-impl-complete.md
+    next: []
+    reject: [13-impl-verify]
