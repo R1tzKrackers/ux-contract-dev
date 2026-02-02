@@ -1,4 +1,4 @@
-# プロジェクト設定カスタマイズ プロンプト
+﻿# プロジェクト設定カスタマイズ プロンプト
 
 **フェーズ**: プロジェクトセットアップ（設定カスタマイズ）
 **担当**: {{SETUP_ROLE}}
@@ -103,7 +103,7 @@ variable_mapping:
 
 ## 履歴記録（必須）
 
-設定完了時、`.ux-dev-history.yml` に以下を追記せよ：
+設定完了時、`.phase-manager-history.yml` に以下を追記せよ：
 
 ```yaml
 - phase: "00c-project-config"
@@ -111,6 +111,13 @@ variable_mapping:
   comment: "設定内容を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
+
+### commentの記載例
+
+| シナリオ | comment例 |
+|----------|-----------|
+| 初回設定 | `プロジェクト設定完了（docs/ux, src構成）` |
+| 設定変更 | `ロール名をDesigner/Developerに変更` |
 ```
 
 ---

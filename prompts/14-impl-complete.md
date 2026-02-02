@@ -1,4 +1,4 @@
-# 実装完了 プロンプト
+﻿# 実装完了 プロンプト
 
 **フェーズ**: 実装完了
 **担当**: {{IMPL_ROLE}}
@@ -54,11 +54,18 @@ INCOMPLETE: PENDING ITEMS EXIST
 
 ## 履歴記録（必須）
 
-実装完了時、`.ux-dev-history.yml` に以下を追記せよ：
+実装完了時、`.phase-manager-history.yml` に以下を追記せよ：
 
 ```yaml
 - phase: "14-impl-complete"
   status: "complete"
-  comment: "実装完了: ファイル数XX, テストALL PASS"
+  comment: "完了内容を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
+
+### commentの記載例
+
+| シナリオ | comment例 |
+|----------|-----------|
+| 完了 | `実装完了: 8ファイル、テスト全件PASS` |
+| 未完了 | `未対応項目あり: ログ出力機能` |

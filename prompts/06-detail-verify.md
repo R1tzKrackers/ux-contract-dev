@@ -1,4 +1,4 @@
-# 詳細契約検証 プロンプト
+﻿# 詳細契約検証 プロンプト
 
 **フェーズ**: 詳細契約検証
 **担当**: {{DESIGN_ROLE}}（検証担当）
@@ -180,13 +180,13 @@ OKの場合は **要約＋「OK」だけ** を出力せよ。
 
 ## 履歴記録（必須）
 
-検証完了時、`.ux-dev-history.yml` に以下を追記せよ：
+検証完了時、`.phase-manager-history.yml` に以下を追記せよ：
 
 ```yaml
 # OKの場合
 - phase: "06-detail-verify"
   status: "complete"
-  comment: "詳細設計検証OK"
+  comment: "検証結果を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 
 # NGの場合
@@ -196,3 +196,11 @@ OKの場合は **要約＋「OK」だけ** を出力せよ。
   comment: "主要なNG理由を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
+
+### commentの記載例
+
+| シナリオ | comment例 |
+|----------|-----------|
+| OK | `詳細設計検証OK、問題なし` |
+| NG（アーキテクチャ） | `レイヤー分離未定義、モジュール責務不明確` |
+| NG（スキーマ） | `スキーマ不完全（3フィールド未定義）` |

@@ -1,4 +1,4 @@
-# UX凍結・実装フェーズ移行 プロンプト
+﻿# UX凍結・実装フェーズ移行 プロンプト
 
 **フェーズ**: UX凍結
 **担当**: {{DESIGN_ROLE}}
@@ -73,14 +73,21 @@
 
 ## 履歴記録（必須）
 
-凍結完了時、`.ux-dev-history.yml` に以下を追記せよ：
+凍結完了時、`.phase-manager-history.yml` に以下を追記せよ：
 
 ```yaml
 - phase: "09-design-freeze"
   status: "complete"
-  comment: "UX契約を凍結"
+  comment: "凍結内容を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
+
+### commentの記載例
+
+| シナリオ | comment例 |
+|----------|-----------|
+| 凍結 | `UX契約を凍結、タグux-frozen-v1作成` |
+| 再凍結 | `UX契約を再凍結（設定画面追加後）` |
 ```
 
 ---

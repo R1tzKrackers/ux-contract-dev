@@ -1,4 +1,4 @@
-# 実装準備 プロンプト
+﻿# 実装準備 プロンプト
 
 **フェーズ**: 実装準備
 **担当**: {{IMPL_ROLE}}
@@ -44,12 +44,12 @@ READY: UX CONTRACT COMPLETE
 
 ## 履歴記録（必須）
 
-READY完了時、`.ux-dev-history.yml` に以下を追記せよ：
+READY完了時、`.phase-manager-history.yml` に以下を追記せよ：
 
 ```yaml
 - phase: "11-impl-ready"
   status: "complete"
-  comment: "仕様読み込み完了、実装対象特定済み"
+  comment: "準備結果を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
 
@@ -61,6 +61,14 @@ STOPの場合：
   comment: "不足項目を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
+
+### commentの記載例
+
+| シナリオ | comment例 |
+|----------|-----------|
+| READY | `仕様読み込み完了、実装対象5モジュール特定` |
+| STOP | `APIレスポンス形式が未定義` |
+| STOP | `エラー処理ポリシーが欠落` |
 
 ---
 

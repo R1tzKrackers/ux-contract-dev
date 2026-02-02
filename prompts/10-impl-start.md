@@ -1,4 +1,4 @@
-# 実装開始 プロンプト
+﻿# 実装開始 プロンプト
 
 **フェーズ**: 実装引継ぎ
 **担当**: {{IMPL_ROLE}}
@@ -90,11 +90,18 @@
 
 ## 履歴記録（必須）
 
-実装モード有効化時、`.ux-dev-history.yml` に以下を追記せよ：
+実装モード有効化時、`.phase-manager-history.yml` に以下を追記せよ：
 
 ```yaml
 - phase: "10-impl-start"
   status: "complete"
-  comment: "実装モード有効化"
+  comment: "モード有効化内容を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
+
+### commentの記載例
+
+| シナリオ | comment例 |
+|----------|-----------|
+| 初回 | `実装モード有効化、Developerとして開始` |
+| 再開 | `実装モード再有効化（追加実装）` |

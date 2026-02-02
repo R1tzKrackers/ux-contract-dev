@@ -1,4 +1,4 @@
-# UX契約検証 プロンプト
+﻿# UX契約検証 プロンプト
 
 **フェーズ**: UX契約検証
 **担当**: {{DESIGN_ROLE}}（検証担当）
@@ -80,13 +80,13 @@ NGの場合は **要約＋「NG」＋ ng_list.yml のみ** を出力せよ。
 
 ## 履歴記録（必須）
 
-作業完了時、`.ux-dev-history.yml` に以下を追記せよ：
+作業完了時、`.phase-manager-history.yml` に以下を追記せよ：
 
 OKの場合：
 ```yaml
 - phase: "03-ux-verify"
   status: "complete"
-  comment: ""
+  comment: "検証結果を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
 
@@ -98,6 +98,14 @@ NGの場合：
   comment: "主要なNG理由を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
+
+### commentの記載例
+
+| シナリオ | comment例 |
+|----------|-----------|
+| OK | `UX契約検証OK、問題なし` |
+| NG（曖昧） | `画面遷移条件が曖昧（3件）` |
+| NG（未定義） | `エラー状態のUI定義が未定義` |
 ```
 
 ---

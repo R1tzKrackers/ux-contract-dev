@@ -1,4 +1,4 @@
-# 実装検証 プロンプト
+﻿# 実装検証 プロンプト
 
 **フェーズ**: 実装検証
 **担当**: {{IMPL_ROLE}}
@@ -142,13 +142,13 @@ feedback:
 
 ## 履歴記録（必須）
 
-作業完了時、`.ux-dev-history.yml` に以下を追記せよ：
+作業完了時、`.phase-manager-history.yml` に以下を追記せよ：
 
 PASSの場合：
 ```yaml
 - phase: "13-impl-verify"
   status: "complete"
-  comment: ""
+  comment: "検証結果を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
 
@@ -160,6 +160,14 @@ FAILの場合：
   comment: "失敗した検証項目を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
+
+### commentの記載例
+
+| シナリオ | comment例 |
+|----------|-----------|
+| PASS | `全検証項目PASS（Schema/Golden/Acceptance）` |
+| FAIL | `Golden不一致2件、エラー処理検証FAIL` |
+| STOP | `仕様問題発見: セッション削除の確認UI未定義` |
 
 ---
 

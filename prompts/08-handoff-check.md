@@ -1,4 +1,4 @@
-# 設計引継ぎ判定 プロンプト
+﻿# 設計引継ぎ判定 プロンプト
 
 **フェーズ**: 設計引継ぎ
 **担当**: {{DESIGN_ROLE}}
@@ -77,13 +77,13 @@
 
 ## 履歴記録（必須）
 
-判定完了時、`.ux-dev-history.yml` に以下を追記せよ：
+判定完了時、`.phase-manager-history.yml` に以下を追記せよ：
 
 ```yaml
 # GOの場合
 - phase: "08-handoff-check"
   status: "complete"
-  comment: "引継ぎ判定GO"
+  comment: "判定結果を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 
 # NO-GOの場合
@@ -93,3 +93,11 @@
   comment: "主要なNO-GO理由を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
+
+### commentの記載例
+
+| シナリオ | comment例 |
+|----------|-----------|
+| GO | `引継ぎ判定GO、実装フェーズへ移行可能` |
+| NO-GO | `構造化データ不足、自然言語記述が多い` |
+| NO-GO | `成果物不足（error-policy.yml欠落）` |

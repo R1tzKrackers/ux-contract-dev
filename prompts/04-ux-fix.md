@@ -1,4 +1,4 @@
-# UX修正 プロンプト
+﻿# UX修正 プロンプト
 
 **フェーズ**: UX修正（差し戻し時）
 **担当**: {{DESIGN_ROLE}}
@@ -58,7 +58,7 @@ ng_list.yml に記載された **NG指摘のみ** を解消する。
 
 ## 履歴記録（必須）
 
-修正完了時、`.ux-dev-history.yml` に以下を追記せよ：
+修正完了時、`.phase-manager-history.yml` に以下を追記せよ：
 
 ```yaml
 - phase: "04-ux-fix"
@@ -66,3 +66,10 @@ ng_list.yml に記載された **NG指摘のみ** を解消する。
   comment: "修正内容を1行で"
   timestamp: 現在時刻を取得して記録（`date -u +"%Y-%m-%dT%H:%M:%SZ"` または PowerShell `Get-Date -Format o`）
 ```
+
+### commentの記載例
+
+| シナリオ | comment例 |
+|----------|-----------|
+| 修正完了 | `NG指摘3件を修正（曖昧表現解消）` |
+| 部分修正 | `画面状態定義を追加、API期待値を明確化` |
